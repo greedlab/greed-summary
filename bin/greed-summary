@@ -1,0 +1,101 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "greed/summary"
+
+# You can add fixtures and/or initialization code here to make experimenting
+# with your gem easier. You can also use a different console, if you like.
+
+# (If you use this, don't forget to add pry to your Gemfile!)
+# require "pry"
+# Pry.start
+
+
+# require "irb"
+# IRB.start
+
+require 'getoptlong'
+
+opts = GetoptLong.new(
+    ['--title', '-t', GetoptLong::OPTIONAL_ARGUMENT],
+    ['--directory', '-d', GetoptLong::OPTIONAL_ARGUMENT],
+    ['--output', '-o', GetoptLong::OPTIONAL_ARGUMENT],
+    ['--ignore', '-i', GetoptLong::OPTIONAL_ARGUMENT],
+    ['--suffix', '-s', GetoptLong::OPTIONAL_ARGUMENT],
+    ['--style', '-S', GetoptLong::OPTIONAL_ARGUMENT],
+    ['--encode', '-e', GetoptLong::NO_ARGUMENT],
+    ['--autotitle', '-a', GetoptLong::NO_ARGUMENT],
+    ['--help', '-h', GetoptLong::NO_ARGUMENT],
+    ['--version', '-v', GetoptLong::NO_ARGUMENT]
+)
+
+$title = 'SUMMARY'
+$output = './SUMMARY.md'
+$directory = './'
+$ignore = ['resource', 'Resource']
+$suffix = ['.md', '.markdown']
+$encode = false
+$autotitle = false
+$style = 'github'
+
+opts.each do |opt, arg|
+  case opt
+    when '--title'
+      $title = arg
+    when '--directory'
+      $directory = arg
+    when '--output'
+      $output = arg
+    when '--ignore'
+      $ignore = arg
+    when '--suffix'
+      $suffix = arg
+    when '--style'
+      $style = arg
+    when '--autotitle'
+      $autotitle = true
+    when '--encode'
+      $encode = true
+    when '--help'
+      puts <<-EOF
+summary.rb [OPTION]
+
+-t, --title [string]:
+   title ,default 'SUMMARY'
+
+-d, --directory [directory path]:
+   target directory path ,default './'
+
+-o, --output [file path]:
+   output file path ,default './SUMMARY.md'
+
+-i, --ignore [array]:
+   ignore string array ,default '['resource', 'Resource']'
+
+-s, --suffix [array]:
+   suffix string array ,default '['.md', '.markdown']'
+
+-S, --style [string]:
+   output style ,could be 'github' or 'gitbook', default 'github'
+
+-a, --autotitle:
+   auto set title through file content
+
+-e, --encode:
+   url encode
+
+-h, --help:
+   show help
+
+-v, --version:
+   show version
+      EOF
+      exit 0
+    when '--version'
+      puts  Greed::Summary::VERSION
+      exit 0
+  end
+end
+
+summary = Greed::Summary::GreedSummary.new($title,$output,$directory,$ignore,$suffix,$encode,$autotitle,$style)
+summary.run
