@@ -47,7 +47,7 @@ opts.each do |opt, arg|
       $encode = true
     when '--help'
       puts <<-EOF
-summary.rb [OPTION]
+greed-summary [OPTION]
 
 -t, --title [string]:
    title ,default 'SUMMARY'

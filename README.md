@@ -1,8 +1,6 @@
 # Greed::Summary
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/greed/summary`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+generate `SUMMARY.md` for Github or Gitbook
 
 ## Installation
 
@@ -22,7 +20,39 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+greed-summary [OPTION]
+
+-t, --title [string]:
+   title ,default 'SUMMARY'
+
+-d, --directory [directory path]:
+   target directory path ,default './'
+
+-o, --output [file path]:
+   output file path ,default './SUMMARY.md'
+
+-i, --ignore [array]:
+   ignore string array ,default '['resource', 'Resource']'
+
+-s, --suffix [array]:
+   suffix string array ,default '['.md', '.markdown']'
+
+-S, --style [string]:
+   output style ,could be 'github' or 'gitbook', default 'github'
+
+-a, --autotitle:
+   auto set title through file content
+
+-e, --encode:
+   url encode
+
+-h, --help:
+   show help
+
+-v, --version:
+   show version
+```
 
 ## Development
 
@@ -32,7 +62,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/greed-summary.
+Bug reports and pull requests are welcome on GitHub at https://github.com/greedlab/greed-summary.
 
 
 ## License

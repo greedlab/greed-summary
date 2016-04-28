@@ -19,26 +19,26 @@ module Greed
         end
 
         def run
-          summary_file=File.new(File.join($output), "w+")
+          summary_file=File.new(File.join(@output), "w+")
           if !summary_file
             puts "Unable to whrite summary_file!"
             exit
           end
-          unless File.directory? $directory
+          unless File.directory? @directory
             puts "Unable to open target_directory!"
             exit
           end
-          if $title != ""
-            summary_file.syswrite("# " + $title + "\n\n")
+          if @title != ""
+            summary_file.syswrite("# " + @title + "\n\n")
           end
-          summary_one_directory(summary_file, $directory, $directory, $ignore, 0)
-          puts $output
+          summary_one_directory(summary_file, @directory, @directory, @ignore, 0)
+          puts @output
         end
 
         def get_readme(directory)
           # puts("debug" + directory)
           Dir.foreach(directory) do |file|
-            $suffix.each do |suffix|
+            @suffix.each do |suffix|
               readme = $readme + suffix
               # puts("debug" + readme + " " + file.downcase)
               if file.downcase.== readme
@@ -92,7 +92,7 @@ module Greed
               end
 
               string = "    " * deep
-              if $style == "gitbook"
+              if @style == "gitbook"
                 readme = get_readme(fullPath)
                 if readme
                   relativePath = relativePath + "/" + readme
@@ -102,7 +102,7 @@ module Greed
               end
 
               if relativePath
-                if $encode
+                if @encode
                   relativePath = URI::encode(relativePath)
                 end
                 # puts("debug" + readme)
@@ -118,7 +118,7 @@ module Greed
               if deep == 0 && file == "SUMMARY.md"
                 next
               end
-              $suffix.each do |suffix|
+              @suffix.each do |suffix|
                 length = suffix.length
                 if file[-length, length] != suffix
                   next
@@ -132,7 +132,7 @@ module Greed
                   next
                 end
 
-                if $autotitle
+                if @autotitle
                   title = get_title(fullPath)
                 end
 
@@ -146,7 +146,7 @@ module Greed
                   baseLength += 1
                 end
                 relativePath = fullPath[baseLength, fullPath.length - baseLength]
-                if $encode
+                if @encode
                   relativePath = URI::encode(relativePath)
                 end
                 string = "    " * deep + "* [" + title + "](" + relativePath + ")"
