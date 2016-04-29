@@ -8,6 +8,8 @@
 /spec/reports/
 /tmp/
 
+*.gem
+
 # Mac OS X
 
 *.DS_Store
