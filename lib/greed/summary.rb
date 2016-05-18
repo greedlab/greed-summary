@@ -92,8 +92,17 @@ module Greed
               end
 
               string = "    " * deep
+
+              readme = get_readme(fullPath)
+
+              if @autotitle && readme
+                title = get_title(fullPath + "/" + readme)
+              end
+              if !title || title.length == 0
+                title = file
+              end
+
               if @style == "gitbook"
-                readme = get_readme(fullPath)
                 if readme
                   relativePath = relativePath + "/" + readme
                 else
@@ -106,9 +115,9 @@ module Greed
                   relativePath = URI::encode(relativePath)
                 end
                 # puts("debug" + readme)
-                string = string + "* [" + file + "](" + relativePath + ")"
+                string = string + "* [" + title + "](" + relativePath + ")"
               else
-                string = string + "* " + file
+                string = string + "* " + title
               end
 
               summary.syswrite(string + "\n")

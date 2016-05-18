@@ -42,7 +42,7 @@ greed-summary [OPTION]
    output style ,could be 'github' or 'gitbook', default 'github'
 
 -a, --autotitle:
-   auto set title through file content
+   auto set file title from file content, set directory title from readme.md file content
 
 -e, --encode:
    url encode
